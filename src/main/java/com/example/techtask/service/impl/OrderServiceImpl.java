@@ -26,7 +26,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> findOrders() {
-        List<Order> orders = orderRepository.findOrdersWithActiveUsersSorted(UserStatus.ACTIVE);
+        List<Order> orders = orderRepository.findOrdersWithActiveUsersSorted();
         if (!orders.isEmpty()) {
             return orders;
         } else {

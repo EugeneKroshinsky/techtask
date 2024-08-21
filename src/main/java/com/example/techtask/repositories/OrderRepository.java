@@ -20,7 +20,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 
     @Query("SELECT o " +
             "FROM Order o " +
-            "WHERE o.userId IN (SELECT u.id FROM User u WHERE u.userStatus = :#{#userStatus?.toString()}) " +
+            "WHERE o.userId IN (SELECT u.id FROM User u WHERE u.userStatus = 'ACTIVE') " +
             "ORDER BY o.createdAt")
-    List<Order> findOrdersWithActiveUsersSorted(@Param("userStatus") UserStatus userStatus);
+    List<Order> findOrdersWithActiveUsersSorted();
 }
