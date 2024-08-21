@@ -20,16 +20,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUser() {
-        return userRepository.findUserWithMaxSumByYear(2003).orElseThrow(NoResultException::new);
+        return userRepository.findUserWithMaxSumByYear(2003)
+                .orElseThrow(NoResultException::new);
     }
 
     @Override
     public List<User> findUsers() {
-        List<User> users = userRepository.findPaidOrdersByYear(2010);
-        if (!users.isEmpty()) {
-            return users;
-        } else {
-            throw new NoResultException();
-        }
+        return userRepository.findPaidOrdersByYear(2010);
     }
 }

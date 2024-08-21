@@ -1,7 +1,6 @@
 package com.example.techtask.service.impl;
 
 import com.example.techtask.model.Order;
-import com.example.techtask.model.enumiration.UserStatus;
 import com.example.techtask.repositories.OrderRepository;
 import com.example.techtask.service.OrderService;
 import jakarta.persistence.NoResultException;
@@ -21,17 +20,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order findOrder() {
-        return orderRepository.findLatestOrderWithMultipleItems(1).orElseThrow(NoResultException::new);
+        return orderRepository.findLatestOrderWithMultipleItems(1)
+                .orElseThrow(NoResultException::new);
     }
 
     @Override
     public List<Order> findOrders() {
-        List<Order> orders = orderRepository.findOrdersWithActiveUsersSorted();
-        if (!orders.isEmpty()) {
-            return orders;
-        } else {
-            throw new NoResultException();
-        }
-
+        return orderRepository.findOrdersWithActiveUsersSorted();
     }
 }
