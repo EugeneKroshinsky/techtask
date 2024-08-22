@@ -18,9 +18,10 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
             "LIMIT 1")
     Optional<Order> findLatestOrderWithMultipleItems(@Param("minQuantity") int minQuantity);
 
-    @Query("SELECT o " +
-            "FROM Order o " +
-            "WHERE o.userId IN (SELECT u.id FROM User u WHERE u.userStatus = 'ACTIVE') " +
-            "ORDER BY o.createdAt")
-    List<Order> findOrdersWithActiveUsersSorted();
+    @Query(value = "SELECT o.* FROM orders o " +
+            "WHERE o.user_id IN " +
+            "(SELECT u.id FROM users u WHERE u.user_status::text = :#{#userStatus?.name()}) " +
+            "ORDER BY o.created_at",
+            nativeQuery = true)
+    List<Order> findOrdersWithUserStatus(@Param("userStatus") UserStatus userStatus);
 }
