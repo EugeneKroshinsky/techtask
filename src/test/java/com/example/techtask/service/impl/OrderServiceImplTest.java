@@ -2,6 +2,7 @@ package com.example.techtask.service.impl;
 
 import com.example.techtask.model.Order;
 import com.example.techtask.model.User;
+import com.example.techtask.model.enumiration.UserStatus;
 import com.example.techtask.repositories.OrderRepository;
 import jakarta.persistence.NoResultException;
 import org.junit.jupiter.api.Test;
@@ -46,7 +47,7 @@ class OrderServiceImplTest {
     @Test
     void testFindOrders() {
         List<Order> orders = List.of(order);
-        when(orderRepository.findOrdersWithActiveUsersSorted()).thenReturn(orders);
+        when(orderRepository.findOrdersWithUserStatus(UserStatus.ACTIVE)).thenReturn(orders);
         List<Order> result = orderService.findOrders();
         assertNotNull(result);
         assertEquals(orders, result);
